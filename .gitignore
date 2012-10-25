@@ -1,0 +1,5 @@
+*.o
+*.a
+*~
+sample1_unittest
+test/*_test
