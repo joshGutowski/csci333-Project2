@@ -1,63 +1,78 @@
-#include "Aqueue.h"
+#include <string>
 #include <iostream>
+#include <assert.h>
 
-AQueue::AQueue(int initialSize) {
-  initSize = initialSize;
-  theQueue = new int[initialSize];
-  cap = initialSize;
-  front = 0;
-  back = 0;
-  elements = 0;
-}
+#include "Array.h"
 
-AQueue::~AQueue() {
-  delete[] theQueue;
-}
-
-void AQueue::enqueue(int n) {
-  if(elements >= cap) {
-    int a = 0;
-    temp = new int[2*cap];
-    for(int i=0; i<=cap; i++) {
-      temp[a] = theQueue[i];
-      a++;
+//constructor
+template<typename T>
+TwoDArray<T>::TwoDArray(int r, int c, T def) {
+  assert(r>0 && c>0);
+  numRows = r;
+  numCols = c;
+  defVal = def;
+  theArray = new T*[numRows];
+  for(int i=0; i<numRows; i++){
+    theArray[i] = new T[numCols];
+  }
+  for(int i=0; i<numRows; i++){
+    for(int j=0; j<numCols; j++){
+      theArray[i][j] = defVal;
     }
-    delete[] theQueue;
-    theQueue = temp;
-    cap = cap*2;
   }
- theQueue[back] = n;
-  back = (back+1)%cap;
-  elements++;
 }
 
-int AQueue::dequeue() {
-  if((cap/4) >= elements && (cap/4) > initSize) {
-    int a = 0;
-    temp = new int[cap/2];
-    for(int i=0; i<=elements; i++) {
-      temp[a] = theQueue[i];
-      a++;
+//destructor
+template<typename T>
+TwoDArray<T>::~TwoDArray() {
+  for(int i=0; i<numRows; i++){
+    delete[] theArray[i];
+  }
+  delete[] theArray;
+}
+
+//insert value v at index r.c
+template<typename T>
+void TwoDArray<T>::insert(int r, int c, T val) {
+  assert(r<=numRows && r>=0 && c<=numCols && c>=0);
+  theArray[r][c]=val; 
+}
+
+//get the value at index r,c
+template<typename T>
+T TwoDArray<T>::access(int r, int c) {
+  assert(r<=numRows && r>=0 && c<=numCols && c>=0);
+  return theArray[r][c];
+}
+
+//set the value at index r,c back to the default value
+template<typename T>
+void TwoDArray<T>::remove(int r, int c) {
+  assert(r<=numRows && r>=0 && c<=numCols && c>=0);
+  theArray[r][c] = defVal;
+}
+
+//print the TwoDArray
+template<typename T>
+void TwoDArray<T>::print() {
+  for(int i=0; i<numRows; i++){
+    for(int j=0; j<numCols; j++){
+      std::cout << theArray[i][j] << std::endl;
     }
-    delete[] theQueue;
-    theQueue = temp;
-    cap = cap/2;
   }
-  int result = theQueue[front];
-  front = (front+1)%cap;
-  elements--;
-  return result;
 }
 
-int AQueue::size() {
-  return elements;
+//getters for iteration
+template<typename T>
+int TwoDArray<T>::getNumRows() {
+  return numRows;
 }
 
-bool AQueue::isEmpty() {
- if(elements <= 0) {
-    return true;
-  }
-  else {
-    return false;
-  }
+template<typename T>
+int TwoDArray<T>::getNumCols() {
+  return numCols;
 }
+
+template class TwoDArray<int>;
+template class TwoDArray<double>;
+template class TwoDArray<std::string>;

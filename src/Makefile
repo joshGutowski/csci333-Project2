@@ -5,8 +5,8 @@ A = ./Array
 V = ./Vector
 S = ./Sparse
 
-main: $(A)/Array.o $(V)/Vector.o $(S)/Sparse.o
-	$(CPP) $(CPPFLAGS) -o $(BUILD)/main $(A)/Array.o $(V)/Vector.o $(S)/Sparse.o
+main: $(A)/Array.o 
+	$(CPP) $(CPPFLAGS) -o $(BUILD)/main $(A)/Array.o 
 
 Array.o: $(A)/Array.h $(A)/Array.cpp
 	$(CPP) $(CPPFLAGS) -c $(A)/Array.cpp

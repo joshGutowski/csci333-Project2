@@ -1,22 +1,23 @@
-#ifndef __AQUEUE_H__
-#define __AQUEUE_H__
+#ifndef __TWODARRAY_H__
+#define __TWODARRAY_H__
 
-class AQueue {
+template <typename T>
+class TwoDArray {
  private:
-  int* theQueue;
-  int* temp;
-  int cap;
-  int front;
-  int back;
-  int elements;
-  int initSize;
+  T** theArray;
+  int numRows;
+  int numCols;
+  T defVal;
 
  public:
-  AQueue(int initialSize = 10);
-  ~AQueue();
-  void enqueue(int n);
-  int dequeue();
-  int size();
-  bool isEmpty();
+  TwoDArray<T>(int r, int c, T def);
+  ~TwoDArray<T>();
+  void insert(int r, int c, T val);
+  T access(int r, int c);
+  void remove(int r, int c);
+  void print();
+  int getNumRows();
+  int getNumCols();
 };
+
 #endif
