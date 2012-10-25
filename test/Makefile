@@ -10,18 +10,16 @@ GTEST_INCLUDES = -I$(GTEST) -I$(GTEST)/include
 CPP = g++
 CPPFLAGS = -Wall -Wextra
 
-#stack: Stack.cpp $(SRC)/Stack.o $(GTEST_MAINA)
-#	$(CPP) $(CFLAGS) $(GTEST_INCLUDES) -pthread -o queue_test $^
 
-queue_test: queue.cpp $(SRC)/AQueue/Aqueue.o $(SRC)/LQueue/Lqueue.o $(SRC)/LLQueue/LLqueue.o $(GTEST_MAINA)
-	$(CPP) $(CFLAGS) $(GTEST_INCLUDES) -pthread -o queue_test queue.cpp $(SRC)/AQueue/Aqueue.o $(SRC)/LQueue/Lqueue.o $(SRC)/LLQueue/LLqueue.o $(GTEST_MAINA)
+TwoD_test: TwoDArray.cpp $(SRC)/Array/Array.o $(SRC)/Vector/Vector.o $(SRC)/Sparse/Sparse.o $(GTEST_MAINA)
+	$(CPP) $(CFLAGS) $(GTEST_INCLUDES) -pthread -o TwoD_test TwoDArray.cpp $(SRC)/Array/Array.o $(SRC)/Vector/Vector.o $(SRC)/Sparse/Sparse.o $(GTEST_MAINA)
 
 $(GTEST_MAINA): $(GTEST)/src/*.cc $(GTEST)/src/*.h
 	cd $(GTEST)/make; make
 
 clean:
 	rm -f *~
-	rm -f queue_test
+	rm -f TwoD_test
 	rm -f $(GTEST_MAINA)
 	cd $(GTEST)/make; $(MAKE) clean
 

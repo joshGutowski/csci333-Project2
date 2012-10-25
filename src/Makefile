@@ -1,32 +1,29 @@
 BUILD = ../build
 CPP = g++
 CPPFLAGS = -Wall -Wextra
-TIME = ./TimingTests
-AQ = ./AQueue
-LQ = ./LQueue
-LLQ = ./LLQueue
+A = ./Array
+V = ./Vector
+S = ./Sparse
 
-main: $(TIME)/tt.cpp $(AQ)/Aqueue.o $(LQ)/Lqueue.o $(LLQ)/LLqueue.o
-	$(CPP) $(CPPFLAGS) -o $(BUILD)/main $(TIME)/tt.cpp $(AQ)/Aqueue.o $(LQ)/Lqueue.o $(LLQ)/LLqueue.o
+main: $(A)/Array.o $(V)/Vector.o $(S)/Sparse.o
+	$(CPP) $(CPPFLAGS) -o $(BUILD)/main $(A)/Array.o $(V)/Vector.o $(S)/Sparse.o
 
-Aqueue.o: $(AQ)/Aqueue.h $(AQ)/Aqueue.cpp
-	$(CPP) $(CPPFLAGS) -c $(AQ)/Aqueue.cpp
+Array.o: $(A)/Array.h $(A)/Array.cpp
+	$(CPP) $(CPPFLAGS) -c $(A)/Array.cpp
 
-Lqueue.o: $(LQ)/Lqueue.h $(LQ)/Lqueue.cpp
-	$(CPP) $(CPPFLAGS) -c $(LQ)/Lqueue.cpp
+Vector.o: $(V)/Vector.h $(V)/Vector.cpp
+	$(CPP) $(CPPFLAGS) -c $(V)/Vector.cpp
 
-LLqueue.o: $(LLQ)/LLqueue.h $(LLQ)/LLqueue.cpp
-	$(CPP) $(CPPFLAGS) -c $(LLQ)/LLqueue.cpp
+Sparse.o: $(S)/LLqueue.h $(S)/Sparse.cpp
+	$(CPP) $(CPPFLAGS) -c $(S)/Sparse.cpp
 
 clean:
 	rm -f *.o
 	rm -f *~
-	rm -f $(AQ)/*.o
-	rm -f $(AQ)/*~
-	rm -f $(LQ)/*.o
-	rm -f $(LQ)/*~
-	rm -f $(LLQ)/*.o
-	rm -f $(LLQ)/*~
-	rm -f $(TIME)/*.o
-	rm -f $(TIME)/*~
+	rm -f $(A)/*.o
+	rm -f $(A)/*~
+	rm -f $(V)/*.o
+	rm -f $(V)/*~
+	rm -f $(S)/*.o
+	rm -f $(S)/*~
 	rm -f $(BUILD)/main
