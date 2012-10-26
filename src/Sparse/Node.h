@@ -1,18 +1,25 @@
 #ifndef __NODE_H__
 #define __NODE_H__
 
+template <typename T>
 class Node {
  private:
-  int value;
-  Node* row;
-  Node* col;
+  T value;
+  Node<T>* nextRow;
+  Node<T>* nextCol;
+  int row;
+  int col;
 
  public:
-  Node(int n);
+  Node<T>(T val);
   ~Node();
-  int getValue();
-  Node* getNext();
-  void setNext(Node* n);
+  Node<T>*& getNextCol();
+  Node<T>*& getNextRow();
+  void setNextCol(Node<T>& n);
+  void setNextRow(Node<T>& n);
+  T getValue();
+  int getRow();
+  int getCol();
 };
 
 
