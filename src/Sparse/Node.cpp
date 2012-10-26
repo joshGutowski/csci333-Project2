@@ -3,25 +3,54 @@
 #include <string>
 
 template <typename T>
-Node::Node(int r, int c, T v) {
+Node<T>::Node(int r, int c, T v) {
   val = v;
   col = c;
   row = r;
-  
+  nextCol = 0;
+  nextRow = 0;
 }
 
-Node::~Node() {
+template <typename T>
+Node<T>::~Node() {
 
 }
 
-int Node::getValue() {
-  return value;
+template <typename T>
+Node<T>*& Node<T>::getNextCol() {
+  return nextCol;
 }
 
-Node* Node::getNext() {
-  return next;
+template <typename T>
+Node<T>*& Node<T>::getNextRow() {
+  return nextRow;
 }
 
-void Node::setNext(Node* n) {
- next = n;
+template <typename T>
+void Node<T>::setNextCol(Node<T>& n) {
+  nextCol = &n;
 }
+
+template <typename T>
+void Node<T>::setNextRow(Node<T>& n) {
+  nextRow = &n;
+}
+
+template <typename T>
+T Node<T>::getValue() {
+  return val;
+}
+
+template <typename T>
+int Node<T>::getRow() {
+  return row;
+}
+
+template <typename T>
+int Node<T>::getCol() {
+  return col;
+}
+
+template class Node<int>;
+template class Node<double>;
+template class Node<std::string>;
