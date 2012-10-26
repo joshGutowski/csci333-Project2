@@ -1,18 +1,27 @@
-#ifndef __LQUEUE_H__
-#define __LQUEUE_H__
+#ifndef __VECTORARRAY_H__
+#define __VECTORARRAY_H__
 
-#include <list>
+#include <vector>
 
-class LQueue {
+using std::vector;
+
+template <typename T>
+class VectorArray {
  private:
-  std::list<int>* theQueue;
+  vector<vector<T> > *theArray;
+  int numRows;
+  int numCols;
+  T defVal;
 
  public:
-  LQueue();
-  ~LQueue();
-  void enqueue(int n);
-  int dequeue();
-  int size();
-  bool isEmpty();
+  VectorArray<T>(int r, int c, T def);
+  ~VectorArray<T>();
+  void insert(int r, int c, T val);
+  T access(int r, int c);
+  void remove(int r, int c);
+  void print();
+  int getNumRows();
+  int getNumCols();
 };
+
 #endif

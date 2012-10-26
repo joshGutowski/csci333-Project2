@@ -1,5 +1,6 @@
 #include "gtest/gtest.h"
 #include "../src/Array/Array.h"
+#include "../src/Vector/Vector.h"
 #include <string>
 
 
@@ -53,4 +54,21 @@ TEST(TwoDArrayTest, strings) {
   EXPECT_EQ(5, s->getNumRows());
   EXPECT_EQ(5, s->getNumCols());
   delete s;
+}
+
+TEST(VectorArray, ints) {
+  VectorArray<int>* l = new VectorArray<int>(5,5,5);
+  l->insert(2,2,7);
+  EXPECT_EQ(7, l->access(2,2));
+  l->insert(3,3,10);
+  EXPECT_EQ(10, l->access(3,3));
+  l->remove(3,3);
+  EXPECT_EQ(5, l->access(3,3));
+  l->insert(1,1,1);
+  l->insert(2,2,2);
+  l->insert(3,3,3);
+  l->print();
+  EXPECT_EQ(5, l->getNumRows());
+  EXPECT_EQ(5, l->getNumCols());
+  delete l;
 }
