@@ -1,58 +1,78 @@
-#include "Node.cpp"
-#include "LLqueue.h"
+#include <string>
 #include <iostream>
 #include <assert.h>
 
-LLQueue::LLQueue() {
-  front = 0;
-  back = 0;
-  elements = 0;
+#include "Sparse.h"
+
+//constructor
+template<typename T>
+Sparse<T>::Sparse(int r, int c, T def) {
+  assert(r>0 && c>0);
+  numRows = r;
+  numCols = c;
+  defVal = def;
+  theArray = new T*[numRows];
+  for(int i=0; i<numRows; i++){
+    theArray[i] = new T[numCols];
+  }
+  for(int i=0; i<numRows; i++){
+    for(int j=0; j<numCols; j++){
+      theArray[i][j] = defVal;
+    }
+  }
 }
 
-LLQueue::~LLQueue() {
-  while(!isEmpty()) {
-    dequeue();
+//destructor
+template<typename T>
+Sparse<T>::~Sparse() {
+  for(int i=0; i<numRows; i++){
+    delete[] theArray[i];
+  }
+  delete[] theArray;
+}
+
+//insert value v at index r.c
+template<typename T>
+void Sparse<T>::insert(int r, int c, T val) {
+  assert(r<=numRows && r>=0 && c<=numCols && c>=0);
+  theArray[r][c]=val; 
+}
+
+//get the value at index r,c
+template<typename T>
+T Sparse<T>::access(int r, int c) {
+  assert(r<=numRows && r>=0 && c<=numCols && c>=0);
+  return theArray[r][c];
+}
+
+//set the value at index r,c back to the default value
+template<typename T>
+void Sparse<T>::remove(int r, int c) {
+  assert(r<=numRows && r>=0 && c<=numCols && c>=0);
+  theArray[r][c] = defVal;
+}
+
+//print the Sparse
+template<typename T>
+void Sparse<T>::print() {
+  for(int i=0; i<numRows; i++){
+    for(int j=0; j<numCols; j++){
+      std::cout << theArray[i][j] << std::endl;
+    }
   }
 }
 
-void LLQueue::enqueue(int n) {
-  Node* temp = new Node(n);
-  if(front == 0) {
-    front = temp;
-    back = temp;
-    delete temp;
-  }
-  else {
-    back->setNext(temp);
-    delete temp;
-  }
-  elements++;
+//getters for iteration
+template<typename T>
+int Sparse<T>::getNumRows() {
+  return numRows;
 }
 
-int LLQueue::dequeue() {
-  assert(elements > 0);
-  Node* temp = front;
-  int result = front->getValue();
-  if(elements == 1) {
-    front = new Node(0);
-  }
-  else {
-  front = front->getNext();
-  }
-  delete temp;
-  elements--;
-  return result;
+template<typename T>
+int Sparse<T>::getNumCols() {
+  return numCols;
 }
 
-int LLQueue::size() {
-  return elements;
-}
-
-bool LLQueue::isEmpty() {
-  if(elements <= 0) {
-    return true;
-  }
-  else {
-    return false;
-  }
-}
+template class Sparse<int>;
+template class Sparse<double>;
+template class Sparse<std::string>;
