@@ -1,9 +1,13 @@
 #include "Node.h"
 #include <iostream>
+#include <string>
 
-Node::Node(int n) {
-  value = n;
-  next = 0; 
+template <typename T>
+Node::Node(int r, int c, T v) {
+  val = v;
+  col = c;
+  row = r;
+  
 }
 
 Node::~Node() {
