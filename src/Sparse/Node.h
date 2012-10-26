@@ -4,7 +4,8 @@
 class Node {
  private:
   int value;
-  Node* next;
+  Node* row;
+  Node* col;
 
  public:
   Node(int n);

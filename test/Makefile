@@ -11,8 +11,8 @@ CPP = g++
 CPPFLAGS = -Wall -Wextra
 
 
-twoD_test: twoDArray.cpp $(SRC)/Array/Array.o $(GTEST_MAINA)
-	$(CPP) $(CFLAGS) $(GTEST_INCLUDES) -pthread -o twoD_test twoDArray.cpp $(SRC)/Array/Array.o $(GTEST_MAINA)
+twoD_test: twoDArray.cpp $(SRC)/Array/Array.o $(SRC)/Vector/Vector.o $(GTEST_MAINA)
+	$(CPP) $(CFLAGS) $(GTEST_INCLUDES) -pthread -o twoD_test twoDArray.cpp $(SRC)/Array/Array.o $(SRC)/Vector/Vector.o $(GTEST_MAINA)
 
 $(GTEST_MAINA): $(GTEST)/src/*.cc $(GTEST)/src/*.h
 	cd $(GTEST)/make; make

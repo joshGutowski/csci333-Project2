@@ -8,7 +8,7 @@ using std::vector;
 template <typename T>
 class VectorArray {
  private:
-  vector<vector<T> > *theArray;
+  vector<vector<T> > theArray;
   int numRows;
   int numCols;
   T defVal;

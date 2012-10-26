@@ -13,12 +13,14 @@ VectorArray<T>::VectorArray(int r, int c, T def) {
   numRows = r;
   numCols = c;
   defVal = def;
-  vector< vector<T> > theArray(numRows, vector<T>(numCols));
-  for(int i=0; i<numRows; i++){
-    for(int j=0; j<numCols; j++){
-      theArray[i][j] = defVal;
-    }
+  vector<T> column;
+  for(int i=0; i<numCols; i++){
+    column.push_back(defVal);
   }
+  for(int j=0; j<numRows; j++){
+    theArray.push_back(column);
+  }
+  
 }
 
 //destructor
@@ -30,8 +32,11 @@ VectorArray<T>::~VectorArray() {
 //insert value v at index r.c
 template<typename T>
 void VectorArray<T>::insert(int r, int c, T val) {
+  std::cout << "starting insert" << std::endl;
   assert(r<=numRows && r>=0 && c<=numCols && c>=0);
-  theArray[r][c]=val; 
+  std::cout << "assert passed" << std::endl;
+  theArray[r][c] = val; 
+  std::cout << "assignment complete" << std::endl;
 }
 
 //get the value at index r,c

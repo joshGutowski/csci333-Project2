@@ -57,13 +57,13 @@ TEST(TwoDArrayTest, strings) {
 }
 
 TEST(VectorArray, ints) {
-  VectorArray<int>* l = new VectorArray<int>(5,5,5);
+  VectorArray<int>* l = new VectorArray<int>(5,5,0);
   l->insert(2,2,7);
   EXPECT_EQ(7, l->access(2,2));
   l->insert(3,3,10);
   EXPECT_EQ(10, l->access(3,3));
   l->remove(3,3);
-  EXPECT_EQ(5, l->access(3,3));
+  EXPECT_EQ(0, l->access(3,3));
   l->insert(1,1,1);
   l->insert(2,2,2);
   l->insert(3,3,3);
