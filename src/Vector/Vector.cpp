@@ -32,11 +32,8 @@ VectorArray<T>::~VectorArray() {
 //insert value v at index r.c
 template<typename T>
 void VectorArray<T>::insert(int r, int c, T val) {
-  std::cout << "starting insert" << std::endl;
   assert(r<=numRows && r>=0 && c<=numCols && c>=0);
-  std::cout << "assert passed" << std::endl;
   theArray[r][c] = val; 
-  std::cout << "assignment complete" << std::endl;
 }
 
 //get the value at index r,c

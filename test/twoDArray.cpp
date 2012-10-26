@@ -4,71 +4,193 @@
 #include <string>
 
 
-TEST(TwoDArrayTest, ints) {
-  TwoDArray<int>* ints = new TwoDArray<int>(5,5,0);
-  ints->insert(2,2,7);
-  EXPECT_EQ(7, ints->access(2,2));
-  ints->insert(3,3,10);
-  EXPECT_EQ(10, ints->access(3,3));
-  ints->remove(3,3);
-  EXPECT_EQ(0, ints->access(3,3));
-  ints->insert(1,1,1);
-  ints->insert(2,2,2);
-  ints->insert(3,3,3);
-  ints->print();
-  EXPECT_EQ(5, ints->getNumRows());
-  EXPECT_EQ(5, ints->getNumCols());
-  delete ints;
-}
-
-TEST(TwoDArrayTest, doubles) {
-  TwoDArray<double>* d = new TwoDArray<double>(5,5,5.5);
-  d->insert(2,2,7.7);
-  EXPECT_EQ(7.7, d->access(2,2));
-  d->insert(3,3,10.10);
-  EXPECT_EQ(10.10, d->access(3,3));
-  d->remove(3,3);
-  EXPECT_EQ(5.5, d->access(3,3));
-  d->insert(1,1,1.1);
-  d->insert(2,2,2.2);
-  d->insert(3,3,3.3);
-  d->print();
-  EXPECT_EQ(5, d->getNumRows());
-  EXPECT_EQ(5, d->getNumCols());
-  delete d;
-}
-
-TEST(TwoDArrayTest, strings) {
+TEST(TwoDArrayTest, print) {
+  TwoDArray<int>* l = new TwoDArray<int>(5,5,0);
+  TwoDArray<double>* d = new TwoDArray<double>(5,5,0);
   TwoDArray<std::string>* s = new TwoDArray<std::string>(5,5,"*");
+
+  l->insert(2,2,7);
+  d->insert(2,2,7.7);
   s->insert(2,2,"hello");
+
+  EXPECT_EQ(7, l->access(2,2));
+  EXPECT_EQ(7.7, d->access(2,2));
   EXPECT_EQ("hello", s->access(2,2));
-  s->insert(3,3,"world");
-  EXPECT_EQ("world", s->access(3,3));
-  s->remove(3,3);
-  EXPECT_EQ("*", s->access(3,3));
-  s->insert(1,1,"moo");
-  s->insert(2,2,"cow");
-  s->insert(3,3,"brown");
-  EXPECT_EQ("brown", s->access(3,3));
+
+  l->print();
+  d->print();
   s->print();
-  EXPECT_EQ(5, s->getNumRows());
-  EXPECT_EQ(5, s->getNumCols());
+
+  delete l;
+  delete d;
   delete s;
 }
 
-TEST(VectorArray, ints) {
-  VectorArray<int>* l = new VectorArray<int>(5,5,0);
+
+TEST(TwoDArrayTest, insertAndAccess) {
+  TwoDArray<int>* l = new TwoDArray<int>(5,5,0);
+  TwoDArray<double>* d = new TwoDArray<double>(5,5,0);
+  TwoDArray<std::string>* s = new TwoDArray<std::string>(5,5,"*");
+
   l->insert(2,2,7);
+  d->insert(2,2,7.7);
+  s->insert(2,2,"hello");
+
   EXPECT_EQ(7, l->access(2,2));
-  l->insert(3,3,10);
-  EXPECT_EQ(10, l->access(3,3));
-  l->remove(3,3);
-  EXPECT_EQ(0, l->access(3,3));
-  l->insert(1,1,1);
-  l->insert(2,2,2);
-  l->insert(3,3,3);
-  l->print();
-  EXPECT_EQ(5, l->getNumRows());
-  EXPECT_EQ(5, l->getNumCols());
+  EXPECT_EQ(7.7, d->access(2,2));
+  EXPECT_EQ("hello", s->access(2,2));
+
   delete l;
+  delete d;
+  delete s;
+}
+
+TEST(TwoDArrayTest, remove) {
+  TwoDArray<int>* l = new TwoDArray<int>(5,5,0);
+  TwoDArray<double>* d = new TwoDArray<double>(5,5,0);
+  TwoDArray<std::string>* s = new TwoDArray<std::string>(5,5,"*");
+
+  l->insert(2,2,7);
+  d->insert(2,2,7.7);
+  s->insert(2,2,"hello");
+
+  EXPECT_EQ(7, l->access(2,2));
+  EXPECT_EQ(7.7, d->access(2,2));
+  EXPECT_EQ("hello", s->access(2,2));
+
+  l->remove(2,2);
+  d->remove(2,2);
+  s->remove(2,2);
+  
+  EXPECT_EQ(0, l->access(2,2));
+  EXPECT_EQ(0, d->access(2,2));
+  EXPECT_EQ("*", s->access(2,2));
+
+  delete l;
+  delete d;
+  delete s;
+}
+
+TEST(TwoDArrayTest, getNumRows) {
+  TwoDArray<int>* l = new TwoDArray<int>(5,5,0);
+  TwoDArray<double>* d = new TwoDArray<double>(5,5,0);
+  TwoDArray<std::string>* s = new TwoDArray<std::string>(5,5,"*");
+
+  EXPECT_EQ(5, l->getNumRows());
+  EXPECT_EQ(5, d->getNumRows());
+  EXPECT_EQ(5, s->getNumRows());
+
+  delete l;
+  delete d;
+  delete s;
+}
+
+TEST(TwoDArrayTest, getNumCols) {
+  TwoDArray<int>* l = new TwoDArray<int>(5,5,0);
+  TwoDArray<double>* d = new TwoDArray<double>(5,5,0);
+  TwoDArray<std::string>* s = new TwoDArray<std::string>(5,5,"*");
+
+  EXPECT_EQ(5, l->getNumCols());
+  EXPECT_EQ(5, d->getNumCols());
+  EXPECT_EQ(5, s->getNumCols());
+
+  delete l;
+  delete d;
+  delete s;
+}
+
+
+TEST(VectorArrayTest, print) {
+  VectorArray<int>* l = new VectorArray<int>(5,5,0);
+  VectorArray<double>* d = new VectorArray<double>(5,5,0);
+  VectorArray<std::string>* s = new VectorArray<std::string>(5,5,"*");
+
+  l->insert(2,2,7);
+  d->insert(2,2,7.7);
+  s->insert(2,2,"hello");
+
+  EXPECT_EQ(7, l->access(2,2));
+  EXPECT_EQ(7.7, d->access(2,2));
+  EXPECT_EQ("hello", s->access(2,2));
+
+  l->print();
+  d->print();
+  s->print();
+
+  delete l;
+  delete d;
+  delete s;
+}
+
+
+TEST(VectorArrayTest, insertAndAccess) {
+  VectorArray<int>* l = new VectorArray<int>(5,5,0);
+  VectorArray<double>* d = new VectorArray<double>(5,5,0);
+  VectorArray<std::string>* s = new VectorArray<std::string>(5,5,"*");
+
+  l->insert(2,2,7);
+  d->insert(2,2,7.7);
+  s->insert(2,2,"hello");
+
+  EXPECT_EQ(7, l->access(2,2));
+  EXPECT_EQ(7.7, d->access(2,2));
+  EXPECT_EQ("hello", s->access(2,2));
+
+  delete l;
+  delete d;
+  delete s;
+}
+
+TEST(VectorArrayTest, remove) {
+  VectorArray<int>* l = new VectorArray<int>(5,5,0);
+  VectorArray<double>* d = new VectorArray<double>(5,5,0);
+  VectorArray<std::string>* s = new VectorArray<std::string>(5,5,"*");
+
+  l->insert(2,2,7);
+  d->insert(2,2,7.7);
+  s->insert(2,2,"hello");
+
+  EXPECT_EQ(7, l->access(2,2));
+  EXPECT_EQ(7.7, d->access(2,2));
+  EXPECT_EQ("hello", s->access(2,2));
+
+  l->remove(2,2);
+  d->remove(2,2);
+  s->remove(2,2);
+  
+  EXPECT_EQ(0, l->access(2,2));
+  EXPECT_EQ(0, d->access(2,2));
+  EXPECT_EQ("*", s->access(2,2));
+
+  delete l;
+  delete d;
+  delete s;
+}
+
+TEST(VectorArrayTest, getNumRows) {
+  VectorArray<int>* l = new VectorArray<int>(5,5,0);
+  VectorArray<double>* d = new VectorArray<double>(5,5,0);
+  VectorArray<std::string>* s = new VectorArray<std::string>(5,5,"*");
+
+  EXPECT_EQ(5, l->getNumRows());
+  EXPECT_EQ(5, d->getNumRows());
+  EXPECT_EQ(5, s->getNumRows());
+
+  delete l;
+  delete d;
+  delete s;
+}
+
+TEST(VectorArrayTest, getNumCols) {
+  VectorArray<int>* l = new VectorArray<int>(5,5,0);
+  VectorArray<double>* d = new VectorArray<double>(5,5,0);
+  VectorArray<std::string>* s = new VectorArray<std::string>(5,5,"*");
+
+  EXPECT_EQ(5, l->getNumCols());
+  EXPECT_EQ(5, d->getNumCols());
+  EXPECT_EQ(5, s->getNumCols());
+
+  delete l;
+  delete d;
+  delete s;
 }

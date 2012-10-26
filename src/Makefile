@@ -4,9 +4,12 @@ CPPFLAGS = -Wall -Wextra
 A = ./Array
 V = ./Vector
 S = ./Sparse
+TEST = ../test
 
-main: $(A)/Array.o $(V)/Vector.o 
-	$(CPP) $(CPPFLAGS) -o $(BUILD)/main $(A)/Array.o $(V)/Vector.o
+
+
+main: arrayTest.cpp $(A)/Array.o $(V)/Vector.o 
+	$(CPP) $(CPPFLAGS) -o $(BUILD)/main arrayTest.cpp $(A)/Array.o $(V)/Vector.o 
 
 Array.o: $(A)/Array.h $(A)/Array.cpp
 	$(CPP) $(CPPFLAGS) -c $(A)/Array.cpp
