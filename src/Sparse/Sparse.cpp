@@ -76,25 +76,6 @@ template<typename T>
 void Sparse<T>::remove(int r, int c) {
   assert(r<=numRows && r>=0 && c<=numCols && c>=0);
   insert(r,c,defVal);
-
-  /*  Node<T>** currRow = &(rows[r]);
-  Node<T>** currCol = &(cols[c]);
-  Node<T>** prevRow = currRow;
-  Node<T>** prevCol = currCol;
-  while(*currRow != 0 && (*currRow)->getRow() < r){
-    prevRow = currRow;
-    currRow = &((*currRow)->getNextRow());
-  }
-  while(*currCol != 0 && (*currCol)->getCol() < c){
-    prevRow = currRow;
-    currCol = &((*currCol)->getNextCol());
-  }
-
-  Node<T>* temp = *prevRow;
-  
-  (*currCol)->setNextCol(**currCol);
-  delete temp;
-  */
 }
 
 //print the Sparse
