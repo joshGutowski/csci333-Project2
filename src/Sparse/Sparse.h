@@ -7,8 +7,8 @@ class Sparse {
  private:
   Node<T>** rows;
   Node<T>** cols;
-  int row;
-  int col;
+  int numRows;
+  int numCols;
   T defVal;
 
  public:

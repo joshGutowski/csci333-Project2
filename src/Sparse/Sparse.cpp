@@ -3,6 +3,10 @@
 #include <assert.h>
 
 #include "Sparse.h"
+#include "Node.cpp"
+
+using std::cout;
+using std::endl;
 
 //constructor
 template<typename T>
@@ -11,14 +15,13 @@ Sparse<T>::Sparse(int r, int c, T def) {
   numRows = r;
   numCols = c;
   defVal = def;
-  theArray = new T*[numRows];
+  rows = new Node<T>*[r];
+  cols = new Node<T>*[c];
   for(int i=0; i<numRows; i++){
-    theArray[i] = new T[numCols];
+    rows[i] = 0;
   }
-  for(int i=0; i<numRows; i++){
-    for(int j=0; j<numCols; j++){
-      theArray[i][j] = defVal;
-    }
+  for(int i=0; i<numCols; i++){
+    cols[i] = 0;
   }
 }
 
@@ -26,30 +29,72 @@ Sparse<T>::Sparse(int r, int c, T def) {
 template<typename T>
 Sparse<T>::~Sparse() {
   for(int i=0; i<numRows; i++){
-    delete[] theArray[i];
+    Node<T>** curr = &(rows[i]);
+    while(*curr != 0){
+      Node<T>* temp = *curr;
+      curr = &((*curr)->getNextCol());
+      delete temp;
+    }
   }
-  delete[] theArray;
 }
 
 //insert value v at index r.c
 template<typename T>
 void Sparse<T>::insert(int r, int c, T val) {
   assert(r<=numRows && r>=0 && c<=numCols && c>=0);
-  theArray[r][c]=val; 
+  Node<T>** currRow = &rows[r];
+  Node<T>** currCol = &cols[c];
+  while(*currRow != 0 && (*currRow)->getRow() < r){
+    currRow = &((*currRow)->getNextRow());
+  }
+  while(*currCol != 0 && (*currCol)->getCol() < c){
+    currCol = &((*currCol)->getNextCol());
+  }
+  Node<T>* temp = new Node<T>(r,c,val);
+  temp->setNextRow(**currRow);
+  *currRow = temp;
 }
 
 //get the value at index r,c
 template<typename T>
 T Sparse<T>::access(int r, int c) {
   assert(r<=numRows && r>=0 && c<=numCols && c>=0);
-  return theArray[r][c];
+  Node<T>** currRow = &rows[r];
+  while(*currRow != 0){
+    if((*currRow)->getRow() == r && (*currRow)->getCol() == c){
+      return (*currRow)->getValue();
+    }
+    else{
+      currRow = &((*currRow)->getNextRow());
+    }
+  }
+    return defVal;
 }
 
 //set the value at index r,c back to the default value
 template<typename T>
 void Sparse<T>::remove(int r, int c) {
   assert(r<=numRows && r>=0 && c<=numCols && c>=0);
-  theArray[r][c] = defVal;
+  insert(r,c,defVal);
+
+  /*  Node<T>** currRow = &(rows[r]);
+  Node<T>** currCol = &(cols[c]);
+  Node<T>** prevRow = currRow;
+  Node<T>** prevCol = currCol;
+  while(*currRow != 0 && (*currRow)->getRow() < r){
+    prevRow = currRow;
+    currRow = &((*currRow)->getNextRow());
+  }
+  while(*currCol != 0 && (*currCol)->getCol() < c){
+    prevRow = currRow;
+    currCol = &((*currCol)->getNextCol());
+  }
+
+  Node<T>* temp = *prevRow;
+  
+  (*currCol)->setNextCol(**currCol);
+  delete temp;
+  */
 }
 
 //print the Sparse
@@ -57,7 +102,7 @@ template<typename T>
 void Sparse<T>::print() {
   for(int i=0; i<numRows; i++){
     for(int j=0; j<numCols; j++){
-      std::cout << theArray[i][j] << std::endl;
+      std::cout << access(i,j) << std::endl;
     }
   }
 }
