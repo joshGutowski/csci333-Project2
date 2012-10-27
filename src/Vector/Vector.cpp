@@ -55,9 +55,11 @@ template<typename T>
 void VectorArray<T>::print() {
   for(int i=0; i<numRows; i++){
     for(int j=0; j<numCols; j++){
-      std::cout << theArray[i][j] << std::endl;
+      std::cout << theArray[i][j];
     }
+    std::cout << "" << std::endl;
   }
+  std::cout << "" << std::endl;
 }
 
 //getters for iteration

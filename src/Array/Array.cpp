@@ -61,7 +61,7 @@ void TwoDArray<T>::print() {
     }
     std::cout << "" <<std::endl;
   }
-  std::cout << ""<<std::endl;
+  std::cout << "" <<std::endl;
 }
 
 //getters for iteration
